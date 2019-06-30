@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e0e0e0"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="22sp"
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/colorTextWhite"
+        android:background="#42a5f5"
+        android:text="Thêm khu vực"/>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="10dp"
+           android:orientation="vertical">
+
+           <EditText
+               android:id="@+id/edt_dialog_add_area_id"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="Nhập mã khu vực"
+               android:paddingBottom="5dp"
+               android:paddingLeft="5dp"
+               android:textColor="#673ab7"
+               android:textColorHint="#ff7043"
+               android:paddingRight="5dp"
+               android:paddingTop="5dp"
+               android:maxLines="1"
+               android:layout_marginBottom="10dp"
+               android:background="@drawable/background_textbox"/>
+
+           <EditText
+               android:id="@+id/edt_dialog_add_area_name"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="Nhập tên khu vực"
+               android:paddingBottom="5dp"
+               android:paddingLeft="5dp"
+               android:textColor="#673ab7"
+               android:textColorHint="#ff7043"
+               android:paddingRight="5dp"
+               android:paddingTop="5dp"
+               android:maxLines="1"
+               android:layout_marginBottom="10dp"
+               android:background="@drawable/background_textbox"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_marginTop="20dp"
+               android:layout_marginBottom="15dp"
+               android:orientation="horizontal">
+
+               <Button
+                   android:id="@+id/btn_dialog_add_area_add"
+                   android:layout_width="1dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:text="Thêm"
+                   android:background="@drawable/background_button_add"
+                   android:layout_marginRight="40dp"
+                   android:textColor="#fff"/>
+
+               <Button
+                   android:id="@+id/btn_dialog_add_area_cancel"
+                   android:layout_width="1dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:text="Hủy"
+                   android:background="@drawable/background_button_cancel"
+                   android:textColor="#fff"/>
+
+           </LinearLayout>
+       </LinearLayout>
+
+   </ScrollView>
+
+</LinearLayout>

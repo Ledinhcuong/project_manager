@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#673AB7</color>
+
+    <color name="colorSplashScreen">#000</color>
+
+    <!-- color dark theme -->
+    <color name="colorStatusBarDark">#000</color>
+    <color name="colorActionBarDark">#000</color>
+
+    <color name="colorPageBackground">#000</color>
+
+    <color name="colorItemBackGround">#252525</color>
+    <color name="colorSentence">#2196F3</color>
+    <color name="colorVerbTable">#d6000000</color>
+
+    <color name="colorWord">#673AB7</color>
+
+    <!-- Color dark theme -->
+    <color name="colorPageBackgroundDark">#000</color>
+    <color name="colorTextWhite">#fff</color>
+    <color name="colorItemBackgroundDark">#252525</color>
+    <color name="colorTextDescriptionDark">#E0E0E0</color>
+
+
+    <!-- Color Light theme -->
+    <color name="colorPageBackgroundLight">#fff</color>
+    <color name="colorTextDark">#000</color>
+    <color name="colorItemBackgroundLight">#f2f2f2</color>
+    <color name="colorTextDescriptionLight">#999999</color>
+
+    <!-- Color for cardbackground -->
+    <color name="colorCard1">#8587fe</color>
+    <color name="colorCard2">#20b2c9</color>
+    <color name="colorCard3">#db865d</color>
+    <color name="colorCard4">#00c753</color>
+    <color name="colorCard5">#5231f7</color>
+    <color name="colorCard6">#79f1a4</color>
+    <color name="colorCard7">#fccf31</color>
+    <color name="colorCard8">#9708cc</color>
+    <color name="colorCard9">#026560</color>
+    <color name="colorCard10">#fa709a</color>
+
+
+</resources>
