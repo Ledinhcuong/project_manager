@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_cloud_download"
+        app:showAsAction="always"
+        android:title="Add Inventory"/>
+
+    <item
+        android:id="@+id/menu_add_product"
+        android:icon="@drawable/ic_add_black_purple"
+        app:showAsAction="always"
+        android:title="Add Inventory"/>
+
+</menu>

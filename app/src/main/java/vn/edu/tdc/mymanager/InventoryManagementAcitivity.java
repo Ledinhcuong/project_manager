@@ -57,7 +57,8 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
         adapterArea.setOnItemClickedListener(new AdapterArea.OnItemClickedListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getApplicationContext(), "Đã click vào một item ", Toast.LENGTH_SHORT).show();
+              Intent intent = ListProductActivity.getCallingIntent(InventoryManagementAcitivity.this);
+              startActivity(intent);
             }
         });
 
@@ -83,7 +84,7 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
         // Layout quản lý danh sách
         // Tạo layout manager quản lý recycler view
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
 
         rvListArea.setLayoutManager(gridLayoutManager);
         rvListArea.setAdapter(adapterArea);

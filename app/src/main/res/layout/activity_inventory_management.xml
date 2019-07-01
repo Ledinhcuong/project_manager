@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorTextDark"
         android:textSize="22sp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:text="Danh sách các khu vực"/>
