@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#e0e0e0"
-    tools:context=".ListProductActivity">
+    tools:context=".activity.ListProductActivity">
 
     <TextView
         android:id="@+id/tv_activity_list_product_no_item"

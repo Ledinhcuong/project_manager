@@ -1,39 +1,53 @@
-package vn.edu.tdc.mymanager;
+package vn.edu.tdc.mymanager.fragment;
 
-import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
+import vn.edu.tdc.mymanager.activity.HomeActivity;
+import vn.edu.tdc.mymanager.activity.ListProductActivity;
+import vn.edu.tdc.mymanager.R;
 import vn.edu.tdc.mymanager.adapter.AdapterArea;
+import vn.edu.tdc.mymanager.model.Inventory;
 
-public class InventoryManagementAcitivity extends AppCompatActivity {
+public class InventoryManagementFragment extends Fragment {
 
     RecyclerView rvListArea;
     ArrayList<Inventory> listAreas;
     AdapterArea adapterArea;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_inventory_management, container, false);
+        setHasOptionsMenu(true);
+        return  view;
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory_management);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
 
         initToolbar();
 
@@ -46,10 +60,8 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
         // Set event
         setEvent();
 
-
-
-
     }
+
 
     private void setEvent() {
 
@@ -57,7 +69,7 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
         adapterArea.setOnItemClickedListener(new AdapterArea.OnItemClickedListener() {
             @Override
             public void onItemClick(int position) {
-              Intent intent = ListProductActivity.getCallingIntent(InventoryManagementAcitivity.this);
+              Intent intent = ListProductActivity.getCallingIntent(getContext());
               startActivity(intent);
             }
         });
@@ -76,37 +88,24 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
     }
 
     private void setControl() {
-        rvListArea = (RecyclerView) findViewById(R.id.rv_list_area);
+        rvListArea = (RecyclerView) getActivity().findViewById(R.id.rv_list_area);
         listAreas = new ArrayList<>();
 
-        adapterArea = new AdapterArea(this, listAreas);
+        adapterArea = new AdapterArea(getContext(), listAreas);
 
         // Layout quản lý danh sách
         // Tạo layout manager quản lý recycler view
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
-
         rvListArea.setLayoutManager(gridLayoutManager);
         rvListArea.setAdapter(adapterArea);
-
 
     }
 
     private void initToolbar() {
-        // Set title
-        getSupportActionBar().setTitle("Danh sách kho");
 
-        // Hiển thị nút back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Danh sách");
 
-    }
-
-    // Get calling intent
-    static  public Intent getCallingIntent(Context context) {
-
-        Intent intent = new Intent(context, InventoryManagementAcitivity.class);
-
-        return intent;
 
     }
 
@@ -115,22 +114,22 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case android.R.id.home:  // Sự kiện nút back
-
-                // Hủy màn hình
-                onBackPressed();
-                return true;
 
             case  R.id.add_inventory:
 
+                // Sử dụng bottom sheet dialog (Gọi theo cách sử dụng dialog)
                 View view = getLayoutInflater().inflate(R.layout.botton_sheet_dialog_add_area, null);
 
-                final BottomSheetDialog dialog = new BottomSheetDialog(this);
+                final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
                 dialog.setContentView(view);
 
                 // Ánh xạ cá thành phần trong dialog
                 final EditText edtId = (EditText) dialog.findViewById(R.id.edt_dialog_add_area_id);
+                edtId.setInputType(InputType.TYPE_CLASS_TEXT);   // Set type
+
                 final EditText edtNameArea = (EditText) dialog.findViewById(R.id.edt_dialog_add_area_name) ;
+                edtNameArea.setInputType(InputType.TYPE_CLASS_TEXT);
+
 
                 Button btnAdd = dialog.findViewById(R.id.btn_dialog_add_area_add);
 
@@ -139,16 +138,14 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-
                         // Lấy dữ liệu được điền
                         String id = edtId.getText() + "";
                         String nameArea = edtNameArea.getText() + "";
 
                         if (id.trim().compareTo("")  == 0 || nameArea.trim().compareTo("") == 0) {
-                            Toast.makeText(getApplicationContext(), "Vui lòng nhập đầy đủ các thông tin", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Vui lòng nhập đầy đủ các thông tin", Toast.LENGTH_SHORT).show();
                             return;
                         }
-
 
                         listAreas.add(new Inventory(id, nameArea));
 
@@ -179,11 +176,10 @@ public class InventoryManagementAcitivity extends AppCompatActivity {
 
     // Khởi tạo menu item
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_inventory, menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-
-        return super.onCreateOptionsMenu(menu);
+        inflater.inflate(R.menu.menu_inventory, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

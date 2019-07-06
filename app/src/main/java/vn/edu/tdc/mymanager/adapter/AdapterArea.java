@@ -3,7 +3,6 @@ package vn.edu.tdc.mymanager.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.mymanager.Inventory;
+import vn.edu.tdc.mymanager.model.Inventory;
 import vn.edu.tdc.mymanager.R;
 
 public class AdapterArea  extends RecyclerView.Adapter<AdapterArea.AreaViewHolder>{

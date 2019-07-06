@@ -1,4 +1,4 @@
-package vn.edu.tdc.mymanager;
+package vn.edu.tdc.mymanager.model;
 
 public class Inventory {
 

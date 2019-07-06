@@ -6,51 +6,10 @@
     android:layout_height="match_parent"
     android:background="#e0e0e0"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".activity.HomeActivity"
+    android:id="@+id/content_home"
     tools:showIn="@layout/app_bar_main">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:src="@drawable/logo_company"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="42sp"
-                android:layout_marginTop="15dp"
-                android:typeface="serif"
-                android:gravity="center"
-                android:textColor="@color/colorTextDark"
-                android:text="Xin chào"/>
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list_function"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
-            android:layout_height="1dp"></android.support.v7.widget.RecyclerView>
-
-
-    </LinearLayout>
-
-
+    <!-- Nội dung giao diện các phần khác sẽ chứa ở đây -->
 
 </android.support.constraint.ConstraintLayout>

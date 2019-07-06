@@ -1,4 +1,4 @@
-package vn.edu.tdc.mymanager;
+package vn.edu.tdc.mymanager.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import vn.edu.tdc.mymanager.R;
 import vn.edu.tdc.mymanager.adapter.AdapterProduct;
 import vn.edu.tdc.mymanager.fragment.DialogFragmentAddProduct;
 import vn.edu.tdc.mymanager.model.Product;

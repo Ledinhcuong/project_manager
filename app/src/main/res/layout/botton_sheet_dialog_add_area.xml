@@ -70,6 +70,7 @@
                    android:layout_weight="1"
                    android:layout_height="wrap_content"
                    android:text="Thêm"
+                   android:inputType="text"
                    android:background="@drawable/background_button_add"
                    android:layout_marginRight="40dp"
                    android:textColor="#fff"/>
@@ -78,6 +79,7 @@
                    android:id="@+id/btn_dialog_add_area_cancel"
                    android:layout_width="1dp"
                    android:layout_weight="1"
+                   android:inputType="text"
                    android:layout_height="wrap_content"
                    android:text="Hủy"
                    android:background="@drawable/background_button_cancel"
