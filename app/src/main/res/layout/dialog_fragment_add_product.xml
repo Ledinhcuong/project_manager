@@ -29,6 +29,7 @@
                     android:text="Thêm mặt hàng"/>
 
                 <ImageButton
+                    android:id="@+id/btn_fragment_add_product_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
@@ -205,6 +206,7 @@
                     android:text="Hình ảnh sản phẩm 1"/>
 
                 <ImageView
+                    android:id="@+id/imv_fragment_add_product_photo1"
                     android:layout_width="match_parent"
                     android:scaleType="center"
                     android:src="@drawable/photo_null_require_select_photo"
@@ -219,7 +221,8 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnChonAnhDialog"
+
+                        android:id="@+id/btnChonAnhDialog1"
                         android:layout_width="1dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -233,7 +236,7 @@
                         android:textSize="12sp" />
 
                     <Button
-                        android:id="@+id/btnChupAnhDialog"
+                        android:id="@+id/btn_fragment_add_product_camera1"
                         android:layout_width="1dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"

@@ -18,14 +18,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import vn.edu.tdc.mymanager.BaseActivity;
 import vn.edu.tdc.mymanager.fragment.DialogFragment;
 import vn.edu.tdc.mymanager.fragment.HomeFragment;
 import vn.edu.tdc.mymanager.fragment.InventoryManagementFragment;
 import vn.edu.tdc.mymanager.R;
+import vn.edu.tdc.mymanager.model.Contants;
 
-public class HomeActivity extends AppCompatActivity
+public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
