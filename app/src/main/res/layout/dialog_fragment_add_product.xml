@@ -221,7 +221,6 @@
                     android:orientation="horizontal">
 
                     <Button
-
                         android:id="@+id/btnChonAnhDialog1"
                         android:layout_width="1dp"
                         android:layout_weight="1"

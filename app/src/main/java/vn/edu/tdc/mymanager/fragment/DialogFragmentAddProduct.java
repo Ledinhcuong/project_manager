@@ -1,5 +1,6 @@
 package vn.edu.tdc.mymanager.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -102,16 +103,16 @@ public class DialogFragmentAddProduct extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
-
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", createImageFile()));
-                    startActivityForResult(intent, CAMERA_REQUEST1);
+                } catch (IOException e) {
 
-                } catch (IOException ex) {
-                    Log.d("vip", "Đã thất bại");
-                    ex.printStackTrace();
+                    e.printStackTrace();
+
                 }
+
+                startActivityForResult(intent, CAMERA_REQUEST1);
 
 
             }
@@ -133,7 +134,6 @@ public class DialogFragmentAddProduct extends DialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
 
 
         // Nhận kết quả chọn ảnh từ thư viện 1
@@ -172,10 +172,10 @@ public class DialogFragmentAddProduct extends DialogFragment {
 
             // Nhận dữ liệu từ camera 1
 
-            if (requestCode == CAMERA_REQUEST1 && requestCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST1  && resultCode == RESULT_OK) {
+               Log.d("vip", "Đã chụp từ camera");
                 imgPhoto1.setImageURI(Uri.parse(imagePath));
             }
-
 
         }
 
@@ -213,6 +213,7 @@ public class DialogFragmentAddProduct extends DialogFragment {
 
 
     private File createImageFile() throws IOException {
+
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
