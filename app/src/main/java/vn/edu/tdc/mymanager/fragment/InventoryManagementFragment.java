@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +29,8 @@ import vn.edu.tdc.mymanager.activity.HomeActivity;
 import vn.edu.tdc.mymanager.activity.ListProductActivity;
 import vn.edu.tdc.mymanager.R;
 import vn.edu.tdc.mymanager.adapter.AdapterArea;
+import vn.edu.tdc.mymanager.dialog.DialogFragmentAddProduct;
+import vn.edu.tdc.mymanager.dialog.DialogFragmentCalendar;
 import vn.edu.tdc.mymanager.model.Inventory;
 
 public class InventoryManagementFragment extends Fragment {
@@ -33,6 +38,8 @@ public class InventoryManagementFragment extends Fragment {
     RecyclerView rvListArea;
     ArrayList<Inventory> listAreas;
     AdapterArea adapterArea;
+
+    LinearLayout btnSelectCalendar;
 
     @Nullable
     @Override
@@ -74,6 +81,18 @@ public class InventoryManagementFragment extends Fragment {
             }
         });
 
+        // Sự kiện khi click vào lịch
+        btnSelectCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                DialogFragmentCalendar dialogFragmentCalendar = DialogFragmentCalendar.newInstance();
+                dialogFragmentCalendar.show(fm, null);
+
+            }
+        });
+
     }
 
     private void importData() {
@@ -95,10 +114,12 @@ public class InventoryManagementFragment extends Fragment {
 
         // Layout quản lý danh sách
         // Tạo layout manager quản lý recycler view
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
-        rvListArea.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        rvListArea.setLayoutManager(linearLayoutManager);
         rvListArea.setAdapter(adapterArea);
+
+        btnSelectCalendar = (LinearLayout) getActivity().findViewById(R.id.lnl_fragment_inventory_management_select_calendar);
 
     }
 

@@ -16,17 +16,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
-import vn.edu.tdc.mymanager.BaseActivity;
-import vn.edu.tdc.mymanager.fragment.DialogFragment;
 import vn.edu.tdc.mymanager.fragment.HomeFragment;
 import vn.edu.tdc.mymanager.fragment.InventoryManagementFragment;
 import vn.edu.tdc.mymanager.R;
-import vn.edu.tdc.mymanager.model.Contants;
+import vn.edu.tdc.mymanager.fragment.SettingsAppFragment;
+import vn.edu.tdc.mymanager.fragment.StaftManagerFragment;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +33,7 @@ public class HomeActivity extends BaseActivity
 
     static int READ_EXTERNAL_STORE = 1;  // Mã cấp bộ nhớ
     static int CAMERA_PERMISSION = 2;
+    static int WRITE_EXTERNAL_STORE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +121,51 @@ public class HomeActivity extends BaseActivity
         }
 
 
+    }
 
+    // Require permission write external store
+    public  void requirePermissionWriteExternalStore() {
+
+        // Xin cấp ghi de luu anh
+        if (ContextCompat.checkSelfPermission(HomeActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Yêu cầu cấp quyền nếu đã bị từ chối một lần
+
+                // Hiển thị dialog giải thích (Dialog viết trực tiếp)
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this)
+                        .setTitle("Lưu ý")
+                        .setMessage("Ứng dụng sẽ không thể hoạt động nếu không được cấp quyền !");
+
+                alertDialog.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {  // Sự kiện nút đồng ý
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+
+                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+
+                        // Yêu cầu cấp quyền một lần nữa
+                        ActivityCompat.requestPermissions(HomeActivity.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORE);
+                    }
+                });
+
+                alertDialog.show(); // Hiển thị dialog
+
+
+            } else {  // Yêu cầu cấp quyền lần đầu
+
+                ActivityCompat.requestPermissions(HomeActivity.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORE);
+
+            }
+        }
     }
 
     // Require permission camera
@@ -217,6 +259,14 @@ public class HomeActivity extends BaseActivity
                 fragment = new InventoryManagementFragment();
                 break;
 
+            case R.id.nav_staft_manager:
+                fragment = new StaftManagerFragment();
+                break;
+
+            case R.id.nav_settings:
+                fragment = new SettingsAppFragment();
+                break;
+
                 default:
                     fragment = new HomeFragment();
         }
@@ -282,6 +332,22 @@ public class HomeActivity extends BaseActivity
                 });
 
                 alertDialog.show();
+            }
+
+        }
+
+        // Xu ly ket qua quyen su dung camera
+        if (requestCode == CAMERA_PERMISSION) {
+
+            // Kiểm tra kết quả của việc cấp quyền
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                // Xin quyen ghi bo nho
+                requirePermissionWriteExternalStore();
+
+            } else { // Không được cấp phép
+
+                finish(); // Dong ung dung
             }
 
         }

@@ -1,4 +1,4 @@
-package vn.edu.tdc.mymanager.fragment;
+package vn.edu.tdc.mymanager.dialog;
 
 import android.app.Dialog;
 import android.os.Build;

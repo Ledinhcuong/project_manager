@@ -45,12 +45,20 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int i) {
+    public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder,final int i) {
 
         Product item = listProducts.get(i);
 
         // Đưa dữ liệu lên hiển thị
         productViewHolder.tvNameProduct.setText(item.getNameProduct());
+
+        // Bắt sự kiện khi click vào một item
+        productViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickedListener.onItemClick(i);
+            }
+        });
 
 
     }
@@ -73,6 +81,23 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
             tvNameProduct  = (TextView) itemView.findViewById(R.id.item_list_product_name);
             btnRemove = (ImageButton) itemView.findViewById(R.id.btn_item_list_product_remove);
         }
+    }
+
+
+    // Khai báo một phương thức  để ta có thể gọi nó bên ngoài để lấy được dữ liệu
+    public interface OnItemClickedListener {
+
+        void onItemClick(int position);
+
+    }
+
+    // Khai báo một biến interface
+    private OnItemClickedListener onItemClickedListener;
+
+    // Tạo setter cho biến interface ta vừa tạo
+    public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+
+        this.onItemClickedListener = onItemClickedListener;
     }
 }
 

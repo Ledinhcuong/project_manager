@@ -1,6 +1,5 @@
-package vn.edu.tdc.mymanager.fragment;
+package vn.edu.tdc.mymanager.dialog;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,16 +101,21 @@ public class DialogFragmentAddProduct extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
                 try {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", createImageFile()));
+
+                    startActivityForResult(intent, CAMERA_REQUEST1);
+
                 } catch (IOException e) {
 
                     e.printStackTrace();
 
+                    Log.d("vip", e + "Loi la gi ");
+
                 }
 
-                startActivityForResult(intent, CAMERA_REQUEST1);
 
 
             }

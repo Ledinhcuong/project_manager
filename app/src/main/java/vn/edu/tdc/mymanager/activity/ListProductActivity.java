@@ -3,7 +3,6 @@ package vn.edu.tdc.mymanager.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +14,10 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.mymanager.R;
 import vn.edu.tdc.mymanager.adapter.AdapterProduct;
-import vn.edu.tdc.mymanager.fragment.DialogFragmentAddProduct;
+import vn.edu.tdc.mymanager.dialog.DialogFragmentAddProduct;
 import vn.edu.tdc.mymanager.model.Product;
 
-public class ListProductActivity extends AppCompatActivity {
+public class ListProductActivity extends BaseActivity {
 
     TextView tvNoItem;
     RecyclerView rvListProduct;
@@ -36,6 +35,21 @@ public class ListProductActivity extends AppCompatActivity {
         setControl();
 
         importData();
+
+        setEvent();
+    }
+
+    private void setEvent() {
+
+        // Sự kiện khi click vào item trong list
+        adapterProduct.setOnItemClickedListener(new AdapterProduct.OnItemClickedListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                Intent intent = ProductDetailsActivity.getCallingIntent(ListProductActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void importData() {
