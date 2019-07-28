@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#e0e0e0"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <TextView
@@ -27,6 +28,7 @@
            android:orientation="vertical">
 
            <EditText
+               android:visibility="gone"
                android:id="@+id/edt_dialog_add_area_id"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"

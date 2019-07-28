@@ -22,6 +22,7 @@
             android:text="Chọn Ngày"/>
 
         <CalendarView
+            android:id="@+id/clv_dialog_fragment_select_calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </CalendarView>
@@ -36,11 +37,13 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_diloag_fragment_select_calendar_select"
             android:layout_width="1dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="Chọn"/>
         <Button
+            android:id="@+id/btn_dilog_fragment_select_calendar_close"
             android:layout_width="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"

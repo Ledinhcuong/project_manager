@@ -46,7 +46,7 @@ public class AdapterArea  extends RecyclerView.Adapter<AdapterArea.AreaViewHolde
         Inventory item = listArea.get(i);
 
         // Đưa giá trị lên hiển thị
-        areaViewHolder.tvIdArea.setText(item.getIdArea());
+        areaViewHolder.tvIdArea.setText("Mã: " + item.getIdArea() + "");
         areaViewHolder.tvNameArea.setText(item.getNameArea());
 
         // Bắt sự kiện nút arrow down

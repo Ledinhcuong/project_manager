@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,14 +22,18 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vn.edu.tdc.mymanager.activity.HomeActivity;
 import vn.edu.tdc.mymanager.activity.ListProductActivity;
 import vn.edu.tdc.mymanager.R;
 import vn.edu.tdc.mymanager.adapter.AdapterArea;
+import vn.edu.tdc.mymanager.database.DatabaseManager;
 import vn.edu.tdc.mymanager.dialog.DialogFragmentAddProduct;
 import vn.edu.tdc.mymanager.dialog.DialogFragmentCalendar;
 import vn.edu.tdc.mymanager.model.Inventory;
@@ -38,8 +43,11 @@ public class InventoryManagementFragment extends Fragment {
     RecyclerView rvListArea;
     ArrayList<Inventory> listAreas;
     AdapterArea adapterArea;
+    TextView tvTitleList;
 
     LinearLayout btnSelectCalendar;
+
+    DatabaseManager myData;
 
     @Nullable
     @Override
@@ -81,6 +89,7 @@ public class InventoryManagementFragment extends Fragment {
             }
         });
 
+
         // Sự kiện khi click vào lịch
         btnSelectCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +97,43 @@ public class InventoryManagementFragment extends Fragment {
 
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DialogFragmentCalendar dialogFragmentCalendar = DialogFragmentCalendar.newInstance();
+                dialogFragmentCalendar.OnButtonClick(new DialogFragmentCalendar.OnButtonClickListenner() {
+                    @Override
+                    public void OnButtonSlectClick(String calendar) {
+
+                        /*
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = new Date();
+                        date.setTime(calendar);  // Chuyển milisendconds to date
+                        */
+
+                        /*
+                        String dateSelect = format.format(date);
+                        */
+
+                        // Thực hiện truy vấn cơ sở dữ liệu
+                        listAreas.clear();  // Xóa dữ liệu cũ
+
+                        Toast.makeText(getActivity(), calendar, Toast.LENGTH_SHORT).show();
+                        listAreas.addAll(myData.getListAreaToDate(calendar));
+
+                        if (listAreas.size() > 0) {
+                            tvTitleList.setText("Danh sách khu vực (" + calendar + ")");
+
+                        } else {
+                            tvTitleList.setText("Không có khu vực nào");
+                        }
+
+                        adapterArea.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void OnButtonCancelClick() {
+
+                    }
+                });
+
                 dialogFragmentCalendar.show(fm, null);
 
             }
@@ -97,17 +143,39 @@ public class InventoryManagementFragment extends Fragment {
 
     private void importData() {
 
-        listAreas.add(new Inventory("KH01", "Khu vực 1"));
-        listAreas.add(new Inventory("KH02", "Khu vực 2"));
-        listAreas.add(new Inventory("KH03", "Khu vực 3"));
-        listAreas.add(new Inventory("KH04", "Khu vực 4"));
+        // Lấy dữ liệu trong cơ sở dữ liệu
+        new Thread(new Runnable() {  // Chay duoi background
+            @Override
+            public void run() {
+
+                // Lay danh sach trong co so du lieu
+                listAreas.addAll(myData.getAllArea());
+
+                // Chay len giao dien UI
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        adapterArea.notifyDataSetChanged();
+                    }
+                });
+
+
+            }
+        }).start();
+
+
 
         adapterArea.notifyDataSetChanged();
 
     }
 
     private void setControl() {
+
+        myData = new DatabaseManager(getContext());  // Khỏi tạo đối tượng quản lý database
+
         rvListArea = (RecyclerView) getActivity().findViewById(R.id.rv_list_area);
+        tvTitleList = (TextView) getActivity().findViewById(R.id.tv_inventory_management_title_list);
         listAreas = new ArrayList<>();
 
         adapterArea = new AdapterArea(getContext(), listAreas);
@@ -136,7 +204,7 @@ public class InventoryManagementFragment extends Fragment {
 
         switch (item.getItemId()) {
 
-            case  R.id.add_inventory:
+            case  R.id.add_inventory:  // Sự kiện khi nhấn nút thêm
 
                 // Sử dụng bottom sheet dialog (Gọi theo cách sử dụng dialog)
                 View view = getLayoutInflater().inflate(R.layout.botton_sheet_dialog_add_area, null);
@@ -159,18 +227,26 @@ public class InventoryManagementFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        // Lấy dữ liệu được điền
-                        String id = edtId.getText() + "";
+
                         String nameArea = edtNameArea.getText() + "";
 
-                        if (id.trim().compareTo("")  == 0 || nameArea.trim().compareTo("") == 0) {
-                            Toast.makeText(getContext(), "Vui lòng nhập đầy đủ các thông tin", Toast.LENGTH_SHORT).show();
+                        if (nameArea.trim().compareTo("") == 0) {
+                            Toast.makeText(getContext(), "Vui lòng nhập tên khu vực", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        listAreas.add(new Inventory(id, nameArea));
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = new Date();
 
-                        adapterArea.notifyItemInserted(listAreas.size() - 1);
+
+                        String dateToday = dateFormat.format(date);  // Lấy ngày hôm nay
+
+                        myData.addNewArea(nameArea, dateToday);  // thêm vào trong cơ sở dữ liệu
+                        int newID = myData.getIdArea(nameArea);
+
+                        listAreas.add(new Inventory(newID, nameArea, dateToday));
+                        adapterArea.notifyItemInserted(listAreas.size() - 1);  // Cập nhật danh sách đang hiển thỉ
+
 
                         dialog.dismiss();
 

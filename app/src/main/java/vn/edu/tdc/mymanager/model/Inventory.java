@@ -2,22 +2,32 @@ package vn.edu.tdc.mymanager.model;
 
 public class Inventory {
 
-    private String idArea;
-    private String nameArea;
 
-    public Inventory(String id, String nameArea) {
+    private int idArea;     // Mã khu vực
+    private String nameArea;   // Tên khu vực
+    private String date;    // Ngày tạo
+
+    public Inventory(int id, String nameArea, String date) {
 
         this.idArea = id;
         this.nameArea = nameArea;
+        this.date = date;
+
+    }
+
+    public Inventory (String nameArea, String date) {
+
+        this.nameArea = nameArea;
+        this.date = date;
 
     }
 
 
-    public String getIdArea() {
+    public int getIdArea() {
         return idArea;
     }
 
-    public void setIdArea(String idArea) {
+    public void setIdArea(int idArea) {
         this.idArea = idArea;
     }
 
@@ -27,5 +37,14 @@ public class Inventory {
 
     public void setNameArea(String nameArea) {
         this.nameArea = nameArea;
+    }
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
