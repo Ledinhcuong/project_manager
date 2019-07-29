@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import vn.edu.tdc.mymanager.R;
+import vn.edu.tdc.mymanager.Staft;
 import vn.edu.tdc.mymanager.model.Inventory;
 
 public class DatabaseManager extends SQLiteOpenHelper {
@@ -316,6 +317,62 @@ public class DatabaseManager extends SQLiteOpenHelper {
         value = cursor.getInt(0);
 
         return value;
+
+    }
+
+    // ----------------------- Bảng nhân viên -----------------------------//
+
+    /*
+    //
+    // Lấy danh sách nhân viên
+     */
+    public ArrayList<Staft>  getAllListStaft() {
+
+        ArrayList<Staft> listStafts = new ArrayList<>();
+
+        // Viết câu truy vấn
+        String query = "SELECT * FROM NhanVien";
+        myDatabase = this.getReadableDatabase();
+
+        // Tạo biến con trỏ để truy vấn và lấy dữ liệu
+        Cursor cursor = myDatabase.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        // Kiểm tra có lấy được dữ liệu không
+        if (cursor.getCount() == 0) {
+
+            // Hiển thị dialog thông báo lỗi truy xuất dữ liệu
+            final Dialog dialogError = new Dialog(context);
+            dialogError.setContentView(R.layout.dialog_error);  // Set giao diện cho dialog
+
+            Button btnAccept = (Button) dialogError.findViewById(R.id.btnAcceptError);
+
+            // Xử lý sự kiện cho nó
+            btnAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogError.cancel();
+                }
+            });
+
+
+            dialogError.show();  // Hiển thị dialog
+        }
+
+
+        // Đổ dữ liệu vào vào mảng
+        while (cursor.isAfterLast() == false) {
+
+            Staft staft = new Staft(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+
+            listStafts.add(staft);
+
+            cursor.moveToNext();  // Di chuyển đến dòng tiếp theo
+
+        }
+
+        // Trả về danh sách dữ liêu
+        return listStafts;
 
     }
 
