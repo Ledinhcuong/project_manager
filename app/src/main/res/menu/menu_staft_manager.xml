@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_inventory"
+        android:id="@+id/add_staft"
         android:icon="@drawable/ic_add_black_purple"
         app:showAsAction="always"
-        android:title="Add Inventory"/>
+        android:title="Add Staft"/>
+
 
     <item
-        android:id="@+id/search_area"
+        android:id="@+id/search_staft"
         android:icon="@drawable/ic_search_white"
         app:showAsAction="always"
         android:title="Search Staft"/>

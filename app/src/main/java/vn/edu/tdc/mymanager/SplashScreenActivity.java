@@ -23,7 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
         // Thực hiện đưa database tạo sẵn vào trong bộ nhớ thiết bị
         new AsyncTask<Void, Void, Void>() {  // Sử dụng asynstask để thực hiện các tiến trình chạy ngầm
 
@@ -43,10 +42,12 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                 // Tại phương thức này thì nó đã không còn chạy dưới nền nên có thể sử dụng và làm việc với giao diện
 
+
                 // Thực hiện động bộ dữ liệu tại màn hình này sau khi có dữ liệu sẽ chuyển vào màn hình chính
                 Intent intent = HomeActivity.getCallingIntent(SplashScreenActivity.this);
                 startActivity(intent);
                 finish(); // Hủy activity
+
 
                 super.onPostExecute(aVoid);
             }

@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment {
         listFunction.add(new Function("Quản lý kho", "Quản lý các kho hàng", R.drawable.tracauicon));
         listFunction.add(new Function("Quản lý nhân viên", "Quản lý các nhân viên", R.drawable.tuvungicon));
         listFunction.add(new Function("Cài đặt", "Thiết lập các tùy chọn", R.drawable.setting_icon));
+        listFunction.add(new Function("Thống kê", "Thông kê số lượng hàng hóa", R.drawable.thongtinicon));
         adapterFunction.notifyDataSetChanged(); // Thông báo cập nhật lại dữ liệu
 
     }
